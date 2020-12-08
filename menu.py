@@ -47,9 +47,11 @@ Notebook Menu
         notes = self.notebook.search(filter)
         self.show_notes(notes)
 
+#TODO need to fix this
     def add_note(self):
         memo = input("Enter a memo: ")
-        self.notebook.new_note(memo)
+        #self.notebook.new_note(memo)
+        todo_file.write(self.notebook.new_note(memo), "+a")
         print("Your note has been added.")
 
     def modify_note(self):
@@ -64,6 +66,9 @@ Notebook Menu
     def quit(self):
         print("Thank you for using your notebook today.")
         sys.exit(0)
+
+    def open_file(filename, mode):
+        todo_file = open(self.filename, self.mode)
 
 if __name__ == "__main__":
     Menu().run()
