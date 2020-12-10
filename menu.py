@@ -1,5 +1,10 @@
 import sys
+import os
+import time
 from notebook import Notebook, Note
+
+
+FILENAME = "todo.txt"
 
 class Menu:
     '''Display a menu and respond to choices when run.'''
@@ -14,10 +19,12 @@ class Menu:
             }
 
     def display_menu(self):
+        time.sleep(2)
+        os.system('clear')
         print("""
 Notebook Menu
 
-1. Show all notes
+1. Show all open notes
 2. Search notes
 3. Add notes
 4. Modify notes
@@ -39,19 +46,18 @@ Notebook Menu
         if not notes:
             notes = self.notebook.notes
             for note in notes:
-                print("{0}: {1}\n{2}".format(
-                note.id, note.tags, note.memo))
+                if note.is_open:
+                    print("{0}: {1}\n{2}".format(
+                    note.id, note.tags, note.memo))
 
     def search_notes(self):
         filter = input("Search for: ")
         notes = self.notebook.search(filter)
         self.show_notes(notes)
 
-#TODO need to fix this
     def add_note(self):
         memo = input("Enter a memo: ")
-        #self.notebook.new_note(memo)
-        todo_file.write(self.notebook.new_note(memo), "+a")
+        self.notebook.new_note(memo)
         print("Your note has been added.")
 
     def modify_note(self):
@@ -66,9 +72,6 @@ Notebook Menu
     def quit(self):
         print("Thank you for using your notebook today.")
         sys.exit(0)
-
-    def open_file(filename, mode):
-        todo_file = open(self.filename, self.mode)
 
 if __name__ == "__main__":
     Menu().run()

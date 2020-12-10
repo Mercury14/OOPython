@@ -14,6 +14,7 @@ class Note:
         self.memo = memo
         self.tags = tags
         self.creation_date = datetime.date.today()
+        self.is_open = True
         global last_id
         last_id +=1
         self.id = last_id
